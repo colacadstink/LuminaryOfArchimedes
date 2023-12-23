@@ -27,7 +27,8 @@ export class AppComponent implements OnInit {
     this.cards = await this.api.getCardsList();
   }
 
-  updateFilter(searchText: string) {
+  updateFilter(rawSearchText: string) {
+    const searchText = rawSearchText.toLowerCase().trim();
     if(searchText === '') {
       this.filteredCards = [];
       return;
