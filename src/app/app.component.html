@@ -2,7 +2,7 @@
   <ng-container *ngIf="cards">
     <input #filter (keyup)="updateFilter(filter.value)">
     <div *ngFor="let card of filteredCards" class="search-result-card">
-      <a [routerLink]="['card', card.Set_Num, card.Card_Num]" (click)="reset()">{{card.Name}}</a>
+      <a [routerLink]="['card', card.Set_ID, card.Card_Num]" (click)="reset()">{{card.Name}}</a>
     </div>
     <router-outlet></router-outlet>
   </ng-container>

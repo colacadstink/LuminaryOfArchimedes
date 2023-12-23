@@ -19,10 +19,10 @@ type RulingsInfo = {
 })
 export class CardDetailsComponent implements OnChanges {
   @Input()
-  setNum: number | undefined;
+  setID: string | undefined;
 
   @Input()
-  cardNum: number | undefined;
+  cardNum: string | undefined;
 
   card: CardData | undefined;
   rulingsPages: RulingsInfo[] = [];
@@ -35,12 +35,13 @@ export class CardDetailsComponent implements OnChanges {
     this.card = undefined;
     this.rulingsPages = [];
 
-    if(!this.setNum || !this.cardNum) {
+    if(!this.setID || !this.cardNum) {
       return;
     }
+    const setID = this.setID;
+    const cardNum = +this.cardNum;
 
-    // TODO probably refactor this to pull from the global card list to reduce network load
-    this.card = await this.api.getCardByIDs(this.setNum, this.cardNum);
+    this.card = (await this.api.getCardsList()).find((c) => c.Set_ID === setID && c.Card_Num === cardNum);
 
     if(!this.card) return;
 
