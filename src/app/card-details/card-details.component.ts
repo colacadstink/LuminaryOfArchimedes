@@ -1,5 +1,5 @@
 import {Component, Input, OnChanges} from '@angular/core';
-import {CardData, LorcanaAPI} from "lorcana-api";
+import {Abilities, CardData, LorcanaAPI} from "lorcana-api";
 import {NgForOf, NgIf} from "@angular/common";
 
 type RulingsInfo = {
@@ -55,20 +55,18 @@ export class CardDetailsComponent implements OnChanges {
       });
     }
 
-    if('Abilities' in this.card && this.card.Abilities) {
-      for(const [ability, value] of Object.entries(this.card.Abilities)) {
-        if(value) {
-          if(await this.doesMushuWikiRulingsPageExist(ability)) {
-            this.rulingsPages.push({
-              name: `Rulings on ${ability}`,
-              url: this.getMushuWikiRulingsUrl(ability),
-            });
-          } else {
-            this.rulingsPages.push({
-              name: `No rulings available for ${ability}`,
-              url: undefined,
-            });
-          }
+    for(const ability of Abilities) {
+      if(this.card.Body_Text?.includes(ability)) {
+        if(await this.doesMushuWikiRulingsPageExist(ability)) {
+          this.rulingsPages.push({
+            name: `Rulings on ${ability}`,
+            url: this.getMushuWikiRulingsUrl(ability),
+          });
+        } else {
+          this.rulingsPages.push({
+            name: `No rulings available for ${ability}`,
+            url: undefined,
+          });
         }
       }
     }
