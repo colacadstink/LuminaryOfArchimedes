@@ -1,17 +1,16 @@
 <main class="main">
-  <ng-container *ngIf="cards">
-    <input #filter (keyup)="updateFilter(filter.value)">
-    <div *ngFor="let card of filteredCards" class="search-result-card">
-      <a [routerLink]="['card', card.Set_ID, card.Card_Num]" (click)="reset()">{{card.Name}}</a>
-    </div>
+  <ng-container *ngIf="loaded && !error">
+    <app-card-picker></app-card-picker>
     <router-outlet></router-outlet>
   </ng-container>
-  <ng-container *ngIf="error">
+
+  <ng-container *ngIf="loaded && error">
     <pre>{{error.toString()}}
 Stack trace, if available:
 {{error.stack}}</pre>
   </ng-container>
-  <ng-container *ngIf="!cards && !error">
+
+  <ng-container *ngIf="!loaded">
     Loading...
   </ng-container>
 </main>

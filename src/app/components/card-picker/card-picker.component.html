@@ -1,0 +1,16 @@
+<mat-autocomplete #auto="matAutocomplete"
+                  autoActiveFirstOption="true"
+                  (optionSelected)="select($event.option.value)"
+>
+  @for (card of filteredCards; track card.Name) {
+    <mat-option [value]="card">{{card.Name}}</mat-option>
+  }
+</mat-autocomplete>
+<input #filter
+       (keyup)="updateFilter(filter.value)"
+       type="text"
+       placeholder="Card name"
+       aria-label="Card name"
+       matInput
+       [matAutocomplete]="auto"
+>

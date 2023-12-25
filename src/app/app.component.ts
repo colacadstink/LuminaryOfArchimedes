@@ -1,13 +1,14 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {RouterLink, RouterOutlet} from '@angular/router';
-import {CardData, LorcanaAPI} from "lorcana-api";
+import {LorcanaAPI} from "lorcana-api";
 import {MushuWikiService} from "./services/mushu-wiki.service";
+import {CardPickerComponent} from "./components/card-picker/card-picker.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterLink],
+  imports: [CommonModule, RouterOutlet, RouterLink, CardPickerComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
   providers: [
@@ -15,10 +16,7 @@ import {MushuWikiService} from "./services/mushu-wiki.service";
   ],
 })
 export class AppComponent implements OnInit {
-  @ViewChild('filter') filter: ElementRef<HTMLInputElement> | undefined;
-
-  cards: CardData[] | undefined;
-  filteredCards: CardData[] = [];
+  loaded = false;
   error: any | undefined;
 
   constructor(
@@ -29,26 +27,11 @@ export class AppComponent implements OnInit {
   async ngOnInit() {
     try {
       await this.mushuWiki.initPromise;
-      this.cards = await this.api.getCardsList();
+      await this.api.getCardsList();
     } catch (e) {
       console.error(e);
       this.error = e;
     }
-  }
-
-  updateFilter(rawSearchText: string) {
-    const searchText = rawSearchText.toLowerCase().trim();
-    if(searchText === '') {
-      this.filteredCards = [];
-      return;
-    }
-
-    this.filteredCards = this.cards!.filter((c) => c.Name.toLowerCase().includes(searchText));
-  }
-
-  reset() {
-    this.filter!.nativeElement.value = '';
-    this.updateFilter('');
-    this.filter!.nativeElement.focus();
+    this.loaded = true;
   }
 }

@@ -68,7 +68,6 @@ export class MushuWikiService {
   }
 
   async doesRulingsPageExist(conceptName: string): Promise<boolean> {
-    console.log(await this.initPromise);
     return (
       await this.doesCardRulingsPageExist(conceptName) ||
       await this.doesKeywordRulingsPageExist(conceptName)
@@ -77,7 +76,6 @@ export class MushuWikiService {
 
   async doesCardRulingsPageExist(cardName: string): Promise<boolean> {
     const {cardRulings} = await this.initPromise;
-    console.log('Rulings:'+this.#conceptToWikiFormat(cardName));
     return cardRulings.includes(`Rulings:${cardName}`);
   }
 
