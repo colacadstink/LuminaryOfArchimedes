@@ -6,7 +6,12 @@
     </div>
     <router-outlet></router-outlet>
   </ng-container>
-  <ng-container *ngIf="!cards">
+  <ng-container *ngIf="error">
+    <pre>{{error.toString()}}
+Stack trace, if available:
+{{error.stack}}</pre>
+  </ng-container>
+  <ng-container *ngIf="!cards && !error">
     Loading...
   </ng-container>
 </main>

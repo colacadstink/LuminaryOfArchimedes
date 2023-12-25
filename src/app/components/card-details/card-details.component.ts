@@ -1,6 +1,7 @@
 import {Component, Input, OnChanges} from '@angular/core';
 import {Abilities, CardData, LorcanaAPI} from "lorcana-api";
 import {NgForOf, NgIf} from "@angular/common";
+import {MushuWikiService} from "../../services/mushu-wiki.service";
 
 type RulingsInfo = {
   name: string,
@@ -29,6 +30,7 @@ export class CardDetailsComponent implements OnChanges {
 
   constructor(
     private api: LorcanaAPI,
+    private mushu: MushuWikiService,
   ) {}
 
   async ngOnChanges() {
@@ -45,23 +47,21 @@ export class CardDetailsComponent implements OnChanges {
 
     if(!this.card) return;
 
-    const wikiName = this.cardNameToWikiFormat(this.card.Name);
-
     // TODO optimize all this to happen in parallel
     // TODO indicate we're still loading the wiki links
-    if(await this.doesMushuWikiRulingsPageExist(wikiName)) {
+    if(await this.mushu.doesRulingsPageExist(this.card.Name)) {
       this.rulingsPages.push({
         name: 'Card rulings',
-        url: this.getMushuWikiRulingsUrl(wikiName),
+        url: this.mushu.getRulingsUrl(this.card.Name),
       });
     }
 
     for(const ability of Abilities) {
       if(this.card.Body_Text?.includes(ability)) {
-        if(await this.doesMushuWikiRulingsPageExist(ability)) {
+        if(await this.mushu.doesRulingsPageExist(ability)) {
           this.rulingsPages.push({
             name: `Rulings on ${ability}`,
-            url: this.getMushuWikiRulingsUrl(ability),
+            url: this.mushu.getRulingsUrl(ability),
           });
         } else {
           this.rulingsPages.push({
@@ -71,22 +71,5 @@ export class CardDetailsComponent implements OnChanges {
         }
       }
     }
-  }
-
-  // TODO Cache this somewhere, at least for the session.
-  async doesMushuWikiRulingsPageExist(pageName: string): Promise<boolean> {
-    const resp = await fetch(`https://wiki.mushureport.com/api.php?action=parse&format=json&origin=*&page=Rulings%3A${pageName}&prop=displaytitle`);
-    const json = await resp.json();
-    return !json.error;
-  }
-
-  getMushuWikiRulingsUrl(pageName: string) {
-    return `https://wiki.mushureport.com/wiki/Rulings:${pageName}`;
-  }
-
-  cardNameToWikiFormat(cardName: string): string {
-    return cardName
-      .replace(/ /g, '_')
-      ;
   }
 }

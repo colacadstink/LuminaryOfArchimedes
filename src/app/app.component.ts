@@ -2,6 +2,7 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {RouterLink, RouterOutlet} from '@angular/router';
 import {CardData, LorcanaAPI} from "lorcana-api";
+import {MushuWikiService} from "./services/mushu-wiki.service";
 
 @Component({
   selector: 'app-root',
@@ -18,13 +19,21 @@ export class AppComponent implements OnInit {
 
   cards: CardData[] | undefined;
   filteredCards: CardData[] = [];
+  error: any | undefined;
 
   constructor(
     private api: LorcanaAPI,
+    private mushuWiki: MushuWikiService,
   ) {}
 
   async ngOnInit() {
-    this.cards = await this.api.getCardsList();
+    try {
+      await this.mushuWiki.initPromise;
+      this.cards = await this.api.getCardsList();
+    } catch (e) {
+      console.error(e);
+      this.error = e;
+    }
   }
 
   updateFilter(rawSearchText: string) {
