@@ -52,11 +52,15 @@ export class MushuWikiService {
         action: 'query',
         generator: 'categorymembers',
         gcmtitle: 'Category:Keyword_Rulings',
+        gcmlimit: 'max',
+        cllimit: 'max',
       }).then(getCategoryTitles),
       this.#apiRequest({
         action: 'query',
         generator: 'categorymembers',
         gcmtitle: 'Category:Card_Rulings',
+        gcmlimit: 'max',
+        cllimit: 'max',
       }).then(getCategoryTitles),
     ]);
 
@@ -64,6 +68,7 @@ export class MushuWikiService {
   }
 
   async doesRulingsPageExist(conceptName: string): Promise<boolean> {
+    console.log(await this.initPromise);
     return (
       await this.doesCardRulingsPageExist(conceptName) ||
       await this.doesKeywordRulingsPageExist(conceptName)
@@ -72,12 +77,13 @@ export class MushuWikiService {
 
   async doesCardRulingsPageExist(cardName: string): Promise<boolean> {
     const {cardRulings} = await this.initPromise;
-    return cardRulings.includes(this.#conceptToWikiFormat(cardName));
+    console.log('Rulings:'+this.#conceptToWikiFormat(cardName));
+    return cardRulings.includes(`Rulings:${cardName}`);
   }
 
   async doesKeywordRulingsPageExist(keyword: string): Promise<boolean> {
     const {keywordRulings} = await this.initPromise;
-    return keywordRulings.includes(this.#conceptToWikiFormat(keyword));
+    return keywordRulings.includes(`Rulings:${keyword}`);
   }
 
   getRulingsUrl(cardName: string) {

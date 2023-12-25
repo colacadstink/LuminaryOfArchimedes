@@ -6,7 +6,8 @@
 {{card.Body_Text}}</pre>
     <ul *ngIf="rulingsPages.length > 0">
       <li *ngFor="let ruling of rulingsPages">
-        <a [href]="ruling.url" target="_blank">{{ruling.name}}</a>
+        <a *ngIf="ruling.url" [href]="ruling.url" target="_blank">{{ruling.name}}</a>
+        <span *ngIf="!ruling.url">{{ruling.name}}</span>
       </li>
     </ul>
   </div>

@@ -54,6 +54,11 @@ export class CardDetailsComponent implements OnChanges {
         name: 'Card rulings',
         url: this.mushu.getRulingsUrl(this.card.Name),
       });
+    } else {
+      this.rulingsPages.push({
+        name: `No card-specific rulings available for this card`,
+        url: undefined,
+      });
     }
 
     for(const ability of Abilities) {
