@@ -3,16 +3,18 @@ import {CardData, LorcanaAPI} from "lorcana-api";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatInputModule} from "@angular/material/input";
 import {Router} from "@angular/router";
+import {NgClass} from "@angular/common";
 
 @Component({
   selector: 'app-card-picker',
   standalone: true,
   imports: [
     MatAutocompleteModule,
-    MatInputModule
+    MatInputModule,
+    NgClass
   ],
   templateUrl: './card-picker.component.html',
-  styleUrl: './card-picker.component.css'
+  styleUrl: './card-picker.component.less'
 })
 export class CardPickerComponent implements OnInit {
   @ViewChild('filter') filter: ElementRef<HTMLInputElement> | undefined;

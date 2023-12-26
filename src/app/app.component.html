@@ -1,16 +1,18 @@
 <main class="main">
-  <ng-container *ngIf="loaded && !error">
-    <app-card-picker></app-card-picker>
-    <router-outlet></router-outlet>
-  </ng-container>
+  <div class="content">
+    <ng-container *ngIf="loaded && !error">
+      <app-card-picker></app-card-picker>
+      <router-outlet></router-outlet>
+    </ng-container>
 
-  <ng-container *ngIf="loaded && error">
-    <pre>{{error.toString()}}
-Stack trace, if available:
-{{error.stack}}</pre>
-  </ng-container>
+    <ng-container *ngIf="loaded && error">
+      <pre>{{error.toString()}}
+  Stack trace, if available:
+  {{error.stack}}</pre>
+    </ng-container>
 
-  <ng-container *ngIf="!loaded">
-    Loading...
-  </ng-container>
+    <ng-container *ngIf="!loaded">
+      Loading...
+    </ng-container>
+  </div>
 </main>
