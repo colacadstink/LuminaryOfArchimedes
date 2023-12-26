@@ -4,11 +4,12 @@ import {RouterLink, RouterOutlet} from '@angular/router';
 import {LorcanaAPI} from "lorcana-api";
 import {MushuWikiService} from "./services/mushu-wiki.service";
 import {CardPickerComponent} from "./components/card-picker/card-picker.component";
+import {DefaultViewComponent} from "./components/default-view/default-view.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterLink, CardPickerComponent],
+  imports: [CommonModule, RouterOutlet, RouterLink, CardPickerComponent, DefaultViewComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
   providers: [
