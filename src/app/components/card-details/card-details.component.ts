@@ -1,5 +1,5 @@
 import {Component, Input, OnChanges} from '@angular/core';
-import {Abilities, CardData, LorcanaAPI} from "lorcana-api";
+import {Abilities, CardData, CardType, LorcanaAPI} from "lorcana-api";
 import {NgForOf, NgIf} from "@angular/common";
 import {MushuWikiService} from "../../services/mushu-wiki.service";
 import {InkCostComponent} from "../ink-cost/ink-cost.component";
@@ -80,5 +80,24 @@ export class CardDetailsComponent implements OnChanges {
         }
       }
     }
+  }
+
+  getBodyText() {
+    if(!this.card) {
+      return '';
+    }
+
+    let bodyText: string = this.card.Type;
+    if(this.card.Type === CardType.Character) {
+      bodyText += ` - ${this.card.Classifications.join(' ')}`
+    }
+
+    bodyText += '\n\n' + this.card.Body_Text?.trim().replaceAll('\n', '\n\n') || '';
+
+    if(this.card.Type === CardType.Character) {
+      bodyText += `\n\nStrength: ${this.card.Strength}\nWillpower: ${this.card.Willpower}`;
+    }
+
+    return bodyText;
   }
 }
