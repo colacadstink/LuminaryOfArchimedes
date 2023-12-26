@@ -4,8 +4,7 @@
 >
   @for (card of filteredCards; track card.Name) {
     <mat-option [value]="card" class="cardOption" [ngClass]="[card.Color]">
-      {{card.Name}}<br>
-      {{card.Color}}, {{card.Cost}} cost, {{card.Inkable ? 'inkable' : 'uninkable'}}
+      <app-ink-cost [cost]="card.Cost" [inkable]="card.Inkable"></app-ink-cost> {{card.Name}}
     </mat-option>
   }
 </mat-autocomplete>

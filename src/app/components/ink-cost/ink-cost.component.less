@@ -1,0 +1,17 @@
+:host {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.ink-cost-container {
+  display: grid;
+  &>* {
+    grid-column-start: 1;
+    grid-row-start: 1;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

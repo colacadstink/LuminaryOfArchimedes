@@ -4,6 +4,7 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatInputModule} from "@angular/material/input";
 import {Router} from "@angular/router";
 import {NgClass} from "@angular/common";
+import {InkCostComponent} from "../ink-cost/ink-cost.component";
 
 @Component({
   selector: 'app-card-picker',
@@ -11,7 +12,8 @@ import {NgClass} from "@angular/common";
   imports: [
     MatAutocompleteModule,
     MatInputModule,
-    NgClass
+    NgClass,
+    InkCostComponent
   ],
   templateUrl: './card-picker.component.html',
   styleUrl: './card-picker.component.less'

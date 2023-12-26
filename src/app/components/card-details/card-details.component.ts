@@ -2,6 +2,8 @@ import {Component, Input, OnChanges} from '@angular/core';
 import {Abilities, CardData, LorcanaAPI} from "lorcana-api";
 import {NgForOf, NgIf} from "@angular/common";
 import {MushuWikiService} from "../../services/mushu-wiki.service";
+import {InkCostComponent} from "../ink-cost/ink-cost.component";
+import {InkColorIndicatorComponent} from "../ink-color-indicator/ink-color-indicator.component";
 
 type RulingsInfo = {
   name: string,
@@ -13,7 +15,9 @@ type RulingsInfo = {
   standalone: true,
   imports: [
     NgIf,
-    NgForOf
+    NgForOf,
+    InkCostComponent,
+    InkColorIndicatorComponent
   ],
   templateUrl: './card-details.component.html',
   styleUrl: './card-details.component.css'
