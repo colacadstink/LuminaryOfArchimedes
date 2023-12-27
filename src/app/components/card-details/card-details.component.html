@@ -2,8 +2,18 @@
   <div *ngIf="card">
     <pre class="card-text"><app-ink-cost [cost]="card.Cost" [inkable]="card.Inkable"></app-ink-cost> {{card.Name}}
 <app-ink-color-indicator [color]="card.Color"></app-ink-color-indicator> {{getBodyText()}}</pre>
-    <ul *ngIf="rulingsPages.length > 0">
+    <ul>
       <li *ngFor="let ruling of rulingsPages">
+        <a *ngIf="ruling.url" [href]="ruling.url" target="_blank">{{ruling.name}}</a>
+        <span *ngIf="!ruling.url">{{ruling.name}}</span>
+      </li>
+      <li *ngIf="rulingsPages.length === 0">
+        No card specific rulings
+      </li>
+    </ul>
+    General rulings:
+    <ul>
+      <li *ngFor="let ruling of generalRulingsPages">
         <a *ngIf="ruling.url" [href]="ruling.url" target="_blank">{{ruling.name}}</a>
         <span *ngIf="!ruling.url">{{ruling.name}}</span>
       </li>

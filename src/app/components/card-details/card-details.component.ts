@@ -32,6 +32,20 @@ export class CardDetailsComponent implements OnChanges {
   card: CardData | undefined;
   rulingsPages: RulingsInfo[] = [];
 
+  generalRulingsPages: RulingsInfo[] = [{
+    name: 'General',
+    url: 'https://wiki.mushureport.com/wiki/Rulings:General',
+  }, {
+    name: 'Challenges',
+    url: 'https://wiki.mushureport.com/wiki/Rulings:Challenges',
+  }, {
+    name: 'Inkwell',
+    url: 'https://wiki.mushureport.com/wiki/Rulings:Inkwell',
+  }, {
+    name: 'Timing',
+    url: 'https://wiki.mushureport.com/wiki/Rulings:Timing',
+  }];
+
   constructor(
     private api: LorcanaAPI,
     private mushu: MushuWikiService,
