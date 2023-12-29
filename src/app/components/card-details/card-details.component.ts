@@ -107,7 +107,8 @@ export class CardDetailsComponent implements OnChanges {
       bodyText += ` - ${this.card.Classifications.join(' ')}`
     }
 
-    bodyText += '\n\n' + this.card.Body_Text?.trim().replaceAll('\n', '\n\n') || '';
+    bodyText += '\n\n' + (this.card.Body_Text?.trim().replaceAll('\n', '\n\n') || '');
+    console.log(bodyText);
 
     if(this.card.Type === CardType.Character) {
       bodyText += `\n\nStrength: ${this.card.Strength}\nWillpower: ${this.card.Willpower}`;
