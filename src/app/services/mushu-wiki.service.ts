@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import {HOURS, LocalStorageCache} from "./local-storage-cache.service";
 
 type InitPromise = Promise<{
   keywordRulings: string[],
@@ -6,17 +7,42 @@ type InitPromise = Promise<{
 }>;
 
 const WIKI_ROOT = 'https://wiki.mushureport.com';
+const CACHE_VALID_FOR = 18 * HOURS;
 
 @Injectable({
   providedIn: 'root'
 })
 export class MushuWikiService {
-  #initPromise: InitPromise;
+  #keywordRulingsCache: LocalStorageCache<string[]>;
+  #cardRulingsCache: LocalStorageCache<string[]>;
+
+  readonly #initPromise: InitPromise;
   get initPromise() {
     return this.#initPromise;
   }
 
   constructor() {
+    this.#keywordRulingsCache = new LocalStorageCache('keywordRulings', CACHE_VALID_FOR, async () => {
+      const json = await this.#apiRequest({
+        action: 'query',
+        generator: 'categorymembers',
+        gcmtitle: 'Category:Keyword_Rulings',
+        gcmlimit: 'max',
+        cllimit: 'max',
+      });
+      return getCategoryTitles(json);
+    });
+    this.#cardRulingsCache = new LocalStorageCache('cardRulings', CACHE_VALID_FOR, async () => {
+      const json = await this.#apiRequest({
+        action: 'query',
+        generator: 'categorymembers',
+        gcmtitle: 'Category:Card_Rulings',
+        gcmlimit: 'max',
+        cllimit: 'max',
+      });
+      return getCategoryTitles(json);
+    });
+
     this.#initPromise = this.#init();
   }
 
@@ -41,20 +67,8 @@ export class MushuWikiService {
       keywordRulings,
       cardRulings,
     ] = await Promise.all([
-      this.#apiRequest({
-        action: 'query',
-        generator: 'categorymembers',
-        gcmtitle: 'Category:Keyword_Rulings',
-        gcmlimit: 'max',
-        cllimit: 'max',
-      }).then(getCategoryTitles),
-      this.#apiRequest({
-        action: 'query',
-        generator: 'categorymembers',
-        gcmtitle: 'Category:Card_Rulings',
-        gcmlimit: 'max',
-        cllimit: 'max',
-      }).then(getCategoryTitles),
+      this.#keywordRulingsCache.get(),
+      this.#cardRulingsCache.get(),
     ]);
 
     return {keywordRulings, cardRulings};
@@ -68,12 +82,12 @@ export class MushuWikiService {
   }
 
   async doesCardRulingsPageExist(cardName: string): Promise<boolean> {
-    const {cardRulings} = await this.initPromise;
+    const cardRulings = await this.#cardRulingsCache.get();
     return cardRulings.includes(`Rulings:${cardName}`);
   }
 
   async doesKeywordRulingsPageExist(keyword: string): Promise<boolean> {
-    const {keywordRulings} = await this.initPromise;
+    const keywordRulings = await this.#keywordRulingsCache.get();
     return keywordRulings.includes(`Rulings:${keyword}`);
   }
 

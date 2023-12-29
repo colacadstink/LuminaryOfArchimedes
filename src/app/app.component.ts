@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {RouterLink, RouterOutlet} from '@angular/router';
-import {LorcanaAPI} from "lorcana-api";
 import {MushuWikiService} from "./services/mushu-wiki.service";
 import {CardPickerComponent} from "./components/card-picker/card-picker.component";
 import {DefaultViewComponent} from "./components/default-view/default-view.component";
+import {LorcanaAPIService} from "./services/lorcana-api.service";
 
 @Component({
   selector: 'app-root',
@@ -12,16 +12,13 @@ import {DefaultViewComponent} from "./components/default-view/default-view.compo
   imports: [CommonModule, RouterOutlet, RouterLink, CardPickerComponent, DefaultViewComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
-  providers: [
-    {provide: LorcanaAPI, useValue: new LorcanaAPI()},
-  ],
 })
 export class AppComponent implements OnInit {
   loaded = false;
   error: any | undefined;
 
   constructor(
-    private api: LorcanaAPI,
+    private api: LorcanaAPIService,
     private mushuWiki: MushuWikiService,
   ) {}
 

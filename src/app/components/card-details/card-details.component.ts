@@ -1,9 +1,10 @@
 import {Component, Input, OnChanges} from '@angular/core';
-import {Abilities, CardData, CardType, LorcanaAPI} from "lorcana-api";
+import {Abilities, CardData, CardType} from "lorcana-api";
 import {NgForOf, NgIf} from "@angular/common";
 import {MushuWikiService} from "../../services/mushu-wiki.service";
 import {InkCostComponent} from "../ink-cost/ink-cost.component";
 import {InkColorIndicatorComponent} from "../ink-color-indicator/ink-color-indicator.component";
+import {LorcanaAPIService} from "../../services/lorcana-api.service";
 
 type RulingsInfo = {
   name: string,
@@ -47,7 +48,7 @@ export class CardDetailsComponent implements OnChanges {
   }];
 
   constructor(
-    private api: LorcanaAPI,
+    private api: LorcanaAPIService,
     private mushu: MushuWikiService,
   ) {}
 

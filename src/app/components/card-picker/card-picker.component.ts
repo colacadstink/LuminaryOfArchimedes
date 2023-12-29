@@ -1,10 +1,11 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {CardData, LorcanaAPI} from "lorcana-api";
+import {CardData} from "lorcana-api";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatInputModule} from "@angular/material/input";
 import {Router} from "@angular/router";
 import {NgClass} from "@angular/common";
 import {InkCostComponent} from "../ink-cost/ink-cost.component";
+import {LorcanaAPIService} from "../../services/lorcana-api.service";
 
 @Component({
   selector: 'app-card-picker',
@@ -25,7 +26,7 @@ export class CardPickerComponent implements OnInit {
   filteredCards: CardData[] = [];
 
   constructor(
-    private api: LorcanaAPI,
+    private api: LorcanaAPIService,
     private router: Router,
   ) {}
 
