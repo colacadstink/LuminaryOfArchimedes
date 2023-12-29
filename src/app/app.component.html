@@ -1,5 +1,16 @@
 <main class="main">
   <div class="content">
+    <mat-toolbar color="primary">
+      <div class="toolbar">
+        <span>Luminary of Archimedes</span>
+        <div>
+          <button mat-raised-button (click)="clearCacheAndReload()">
+            <mat-icon>refresh</mat-icon>
+            Clear cache & reload
+          </button>
+        </div>
+      </div>
+    </mat-toolbar>
     <ng-container *ngIf="loaded && !error">
       <app-card-picker></app-card-picker>
       <router-outlet></router-outlet>

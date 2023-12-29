@@ -9,7 +9,6 @@ import { provideServiceWorker } from '@angular/service-worker';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes, withComponentInputBinding(), withHashLocation()),
-    provideClientHydration(),
     provideAnimations(),
     provideServiceWorker('ngsw-worker.js', {
         enabled: !isDevMode(),
