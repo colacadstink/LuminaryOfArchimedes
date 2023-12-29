@@ -5,6 +5,8 @@ type InitPromise = Promise<{
   cardRulings: string[],
 }>;
 
+const WIKI_ROOT = 'https://wiki.mushureport.com';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -12,15 +14,6 @@ export class MushuWikiService {
   #initPromise: InitPromise;
   get initPromise() {
     return this.#initPromise;
-  }
-
-  #wikiRoot = 'https://wiki.mushureport.com';
-  get wikiRoot() {
-    return this.#wikiRoot;
-  }
-  set wikiRoot(value) {
-    this.#wikiRoot = value;
-    this.#initPromise = this.#init();
   }
 
   constructor() {
@@ -39,7 +32,7 @@ export class MushuWikiService {
       origin: '*',
       ...params,
     }).toString();
-    const resp = await fetch(`${this.#wikiRoot}/api.php?${searchParams}`);
+    const resp = await fetch(`${WIKI_ROOT}/api.php?${searchParams}`);
     return await resp.json();
   }
 
@@ -85,7 +78,7 @@ export class MushuWikiService {
   }
 
   getRulingsUrl(cardName: string) {
-    return `${this.#wikiRoot}/wiki/Rulings:${this.#conceptToWikiFormat(cardName)}`;
+    return `${WIKI_ROOT}/wiki/Rulings:${this.#conceptToWikiFormat(cardName)}`;
   }
 }
 
