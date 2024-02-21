@@ -2,7 +2,7 @@
   <div class="content">
     <mat-toolbar color="primary">
       <div class="toolbar">
-        <span>Luminary of Archimedes</span>
+        <a mat-button routerLink="/">Luminary of Archimedes</a>
         <div>
           <button mat-raised-button (click)="clearCacheAndReload()">
             <mat-icon>cleaning_services</mat-icon>
@@ -19,8 +19,8 @@
 
     <ng-container *ngIf="loaded && error">
       <pre>{{error.toString()}}
-  Stack trace, if available:
-  {{error.stack}}</pre>
+Stack trace, if available:
+{{error.stack}}</pre>
     </ng-container>
 
     <ng-container *ngIf="!loaded">
