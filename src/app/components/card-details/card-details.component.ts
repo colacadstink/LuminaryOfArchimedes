@@ -107,7 +107,11 @@ export class CardDetailsComponent implements OnChanges {
       bodyText += ` - ${this.card.Classifications.join(' ')}`
     }
 
-    bodyText += '\n\n' + (this.card.Body_Text?.trim().replaceAll('\n', '\n\n') || '');
+    bodyText += '\n\n' + (this.card.Body_Text
+      ?.trim()
+      .replaceAll(/([a-zA-Z])\n([a-zA-Z])/g, '$1 $2') // Bugfix: Starting with SSK, cards have newlines jammed in
+      .replaceAll('\n', '\n\n')
+    || '');
     console.log(bodyText);
 
     if(this.card.Type === CardType.Character) {
