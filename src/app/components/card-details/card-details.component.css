@@ -1,3 +1,4 @@
 .card-text {
+  text-wrap: wrap;
   text-wrap: pretty;
 }

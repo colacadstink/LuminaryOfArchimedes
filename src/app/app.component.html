@@ -12,21 +12,19 @@
         </div>
       </div>
     </mat-toolbar>
-    <ng-container *ngIf="loaded && !error">
+    @if (loaded && !error) {
       <app-card-picker></app-card-picker>
       <router-outlet></router-outlet>
-    </ng-container>
-
-    <ng-container *ngIf="loaded && error">
-      <pre>{{error.toString()}}
-Stack trace, if available:
-{{error.stack}}</pre>
-    </ng-container>
-
-    <ng-container *ngIf="!loaded">
+    }
+    @if(!loaded) {
       Card data loading...
       <app-default-view></app-default-view>
-    </ng-container>
+    }
+    @if (error) {
+      <pre>{{error.toString()}}
+        Stack trace, if available:
+        {{error.stack}}</pre>
+    }
 
     <div>
       Tournament documents (retrieved from <a href="https://www.disneylorcana.com/en-US/resources" target="_blank">the official resources page</a>):
@@ -51,6 +49,7 @@ Stack trace, if available:
         </li>
       </ul>
     </div>
+    <div class="space-eater"></div>
     <div class="footer">
       This website uses trademarks and/or copyrights associated with Disney Lorcana TCG, used under Ravensburger’s
       Community Code Policy
