@@ -109,7 +109,7 @@ export class CardDetailsComponent implements OnChanges {
 
     bodyText += '\n\n' + (this.card.Body_Text
       ?.trim()
-      .replaceAll(/([a-zA-Z])\n([a-zA-Z])/g, '$1 $2') // Bugfix: Starting with SSK, cards have newlines jammed in
+      .replaceAll(/([a-zA-Z,])\n([a-zA-Z])/g, '$1 $2') // Bugfix: Starting with SSK, cards have newlines jammed in
       .replaceAll('\n', '\n\n')
     || '');
     console.log(bodyText);
