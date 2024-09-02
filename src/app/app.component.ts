@@ -8,6 +8,7 @@ import {LorcanaAPIService} from "./services/lorcana-api.service";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
+import {SwUpdate} from "@angular/service-worker";
 
 @Component({
   selector: 'app-root',
@@ -23,6 +24,7 @@ export class AppComponent implements OnInit {
   constructor(
     private api: LorcanaAPIService,
     private mushuWiki: MushuWikiService,
+    private swUpdate: SwUpdate,
   ) {}
 
   async ngOnInit() {
@@ -34,6 +36,16 @@ export class AppComponent implements OnInit {
       this.error = e;
     }
     this.loaded = true;
+
+    this.swUpdate.versionUpdates.subscribe((event) => {
+      if(event.type === 'VERSION_READY') {
+        location.reload();
+      }
+    });
+    this.swUpdate.unrecoverable.subscribe((event) => {
+      console.error(event);
+      location.reload();
+    })
   }
 
   clearCacheAndReload() {
