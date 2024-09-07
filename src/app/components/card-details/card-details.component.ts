@@ -114,8 +114,12 @@ export class CardDetailsComponent implements OnChanges {
     || '');
     console.log(bodyText);
 
+    bodyText += '\n';
     if(this.card.Type === CardType.Character) {
-      bodyText += `\n\nStrength: ${this.card.Strength}\nWillpower: ${this.card.Willpower}`;
+      bodyText += `\nStrength: ${this.card.Strength}\nWillpower: ${this.card.Willpower}`;
+    }
+    if(this.card.Type === CardType.Character || this.card.Type === CardType.Location) {
+      bodyText += `\nLore pips: ${this.card.Lore}`;
     }
 
     return bodyText;
