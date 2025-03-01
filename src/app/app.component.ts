@@ -11,11 +11,10 @@ import {MatIconModule} from "@angular/material/icon";
 import {SwUpdate} from "@angular/service-worker";
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterLink, CardPickerComponent, DefaultViewComponent, MatToolbarModule, MatButtonModule, MatIconModule],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.less',
+    selector: 'app-root',
+    imports: [CommonModule, RouterOutlet, RouterLink, CardPickerComponent, DefaultViewComponent, MatToolbarModule, MatButtonModule, MatIconModule],
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.less'
 })
 export class AppComponent implements OnInit {
   loaded = false;

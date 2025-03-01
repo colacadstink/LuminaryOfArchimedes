@@ -2,13 +2,12 @@ import {Component, Input} from '@angular/core';
 import {NgIf} from "@angular/common";
 
 @Component({
-  selector: 'app-ink-cost',
-  standalone: true,
-  imports: [
-    NgIf
-  ],
-  templateUrl: './ink-cost.component.html',
-  styleUrl: './ink-cost.component.less'
+    selector: 'app-ink-cost',
+    imports: [
+        NgIf
+    ],
+    templateUrl: './ink-cost.component.html',
+    styleUrl: './ink-cost.component.less'
 })
 export class InkCostComponent {
   @Input()

@@ -12,16 +12,15 @@ type RulingsInfo = {
 }
 
 @Component({
-  selector: 'app-card-details',
-  standalone: true,
-  imports: [
-    NgIf,
-    NgForOf,
-    InkCostComponent,
-    InkColorIndicatorComponent
-  ],
-  templateUrl: './card-details.component.html',
-  styleUrl: './card-details.component.css'
+    selector: 'app-card-details',
+    imports: [
+        NgIf,
+        NgForOf,
+        InkCostComponent,
+        InkColorIndicatorComponent
+    ],
+    templateUrl: './card-details.component.html',
+    styleUrl: './card-details.component.css'
 })
 export class CardDetailsComponent implements OnChanges {
   @Input()

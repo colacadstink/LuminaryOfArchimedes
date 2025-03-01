@@ -8,16 +8,15 @@ import {InkCostComponent} from "../ink-cost/ink-cost.component";
 import {LorcanaAPIService} from "../../services/lorcana-api.service";
 
 @Component({
-  selector: 'app-card-picker',
-  standalone: true,
-  imports: [
-    MatAutocompleteModule,
-    MatInputModule,
-    NgClass,
-    InkCostComponent
-  ],
-  templateUrl: './card-picker.component.html',
-  styleUrl: './card-picker.component.less'
+    selector: 'app-card-picker',
+    imports: [
+        MatAutocompleteModule,
+        MatInputModule,
+        NgClass,
+        InkCostComponent
+    ],
+    templateUrl: './card-picker.component.html',
+    styleUrl: './card-picker.component.less'
 })
 export class CardPickerComponent implements OnInit {
   @ViewChild('filter') filter: ElementRef<HTMLInputElement> | undefined;
