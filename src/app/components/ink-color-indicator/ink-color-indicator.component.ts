@@ -12,9 +12,13 @@ import {Color} from "lorcana-api";
 })
 export class InkColorIndicatorComponent {
   @Input()
-  color: Color = Color.Steel;
+  color: string = Color.Steel;
 
-  getColorSvg() {
-    return `assets/${this.color.toLowerCase()}.svg`;
+  getColorSvg(color: string): string {
+    return `assets/${color.trim().toLowerCase()}.svg`;
+  }
+
+  getColorSvgs(): string[] {
+    return this.color.split(',').map(c => this.getColorSvg(c));
   }
 }

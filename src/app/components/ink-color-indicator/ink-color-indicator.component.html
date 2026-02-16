@@ -1,3 +1,5 @@
 <div class="ink-cost-container">
-  <img [ngSrc]="getColorSvg()" alt="inkable" height="32" width="32">
+  @for (color of getColorSvgs(); track $index) {
+    <img [ngSrc]="color" alt="inkable" height="32" width="32">
+  }
 </div>
